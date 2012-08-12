@@ -63,12 +63,12 @@ var onInputChange = (function(){
         return this.each(function(){
             new OnInputChange(this, callback, options);
         });
-    }
+    };
     
     return {
         Constructor: OnInputChange,
         support:onInputSupport
-    }
+    };
     
 })();
 
