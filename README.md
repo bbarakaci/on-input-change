@@ -6,6 +6,8 @@ This jQuery plugin will use the native oninput event, will fallback to setInterv
 
 This is a first draft. It has no tests. It is manually tested with modern browsers and ie 7,8,9. It should work in ie6 but not tested.
 
+There is a simple [demo/development](http://bbarakaci.github.com/on-input-change/) page to see it in action.
+
 ##Usage
     $('input').onInputChange(function(value, element){
         console.log(value);
