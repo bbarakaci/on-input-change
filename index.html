@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>onInputChange</title>
+	<meta charset="utf-8" />
+	<script src="libs/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="on-input-change.js"></script>
+</head>
+<body>
+	<label for="textInput">#textInput</label>
+	<input id="textInput" type="text">
+	<p id="support"></p>
+	<p id="screen"></p>
+	<script>
+		(function(){
+			var screen = document.getElementById('screen');
+			$('#support').html((onInputChange.support) ? 'Using native oninput event' : 'Using setInterval');
+			$('#textInput').onInputChange(function(value){
+				screen.innerHTML = screen.innerHTML + 'input value changed to ' + value + '<br>';
+			});
+		})();
+	</script>
+</body>
+</html>
