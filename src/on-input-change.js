@@ -1,28 +1,19 @@
-/*
- * on-input-change
- * https://github.com/bbarakaci/on-input-change
- *
- * Copyright (c) 2012 Burak Barakaci
- * Licensed under the MIT license.
- */
-
-var onInputChange = (function(){
+var onInputChange = (function($){
     
     /*
-    var input = document.createElement('input');
-    var onInputSupport = input.oninput===null;
-    
     ie9 doesn't trigger oninput event when content is removed with BACKSPACE, ctrl+x etc... 
-    I will not bother with feature check. Sorry.
+    I will not bother with feature check.
     */
     var onInputSupport = (!$.browser.msie);
-    
+
     function OnInputChange(element, callback, options) {
         this.element = element;
         this.$element = $(element);
         this.value = element.value;
         this._callback = callback;
-        this.time = (options && options.time) ? options.time : 150;
+        this.options = $.extend({
+            time: 150
+        }, options);        
         $(element).on('focus', $.proxy(this._listen, this));
         $(element).on('blur', $.proxy(this._unlisten, this));
     }
@@ -34,8 +25,9 @@ var onInputChange = (function(){
                 this.$element.on('input', $.proxy(this._run, this));
             }
             else {
-                this._interval = window.setInterval($.proxy(this._check, this), this.time);
+                this._interval = window.setInterval($.proxy(this._check, this), this.options.time);
             }
+            return true;
         },
         
         _unlisten: function(){
@@ -45,6 +37,7 @@ var onInputChange = (function(){
             else {
                 window.clearInterval(this._interval);
             }
+            return true;
         },
         
         _run: function(){
@@ -70,6 +63,6 @@ var onInputChange = (function(){
         support:onInputSupport
     };
     
-})();
+})(window.jQuery);
 
     

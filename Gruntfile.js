@@ -3,12 +3,34 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    meta: {
+        version: '0.1.0'
+    },
+    banner: '/*! On Input Change - v<%= meta.version %> - ' +
+      '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+      '* http://github.com/bbarakaci/on-input-change\n' +
+      '* Licensed under the MIT license. ' + '*/\n',
     lint: {
-      files: ['Gruntfile.js', 'on-input-change.js']
+      files: ['Gruntfile.js', 'src/on-input-change.js']
     },
     watch: {
       files: '<config:lint.files>',
       tasks: 'lint qunit'
+    },
+    concat: {
+      dist: {
+        src: ['<file_strip_banner:src/on-input-change.js>'],
+        dest: 'dist/on-input-change.js'
+      }
+    },
+    min: {
+      dist: {
+        src: ['<config:concat.dist.dest>'],
+        dest: 'dist/on-input-change.min.js'
+      }
+    },
+    qunit: {
+      files: ['test/**/*.html']
     },
     jshint: {
       options: {
@@ -31,6 +53,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint');
+  grunt.registerTask('default', 'lint qunit');
+  grunt.registerTask('make', 'lint qunit concat min');
 
 };
